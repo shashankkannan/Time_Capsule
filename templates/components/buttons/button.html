@@ -1,0 +1,11 @@
+<button
+            type="{{ button_type|default:'button' }}"
+            class="{{ button_class }}"
+            id="{{ button_id|default:'defaultButtonId' }}"
+            {% if button_data_toggle %}data-toggle="{{ button_data_toggle }}"{% endif %}
+            {% if button_data_target %}data-target="{{ button_data_target }}"{% endif %}
+            {% if button_font_size %} style="font-size: {{ button_font_size }}" {% endif %}
+            {% if button_disabled %}disabled{% endif %}
+    >
+        {{ button_text }}
+</button>

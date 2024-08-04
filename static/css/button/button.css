@@ -1,0 +1,44 @@
+.primary-button {
+  background-color: var(--primary-color);
+  color: var(--text-white-color);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.primary-button:hover {
+  background-color: var(--text-black-color);
+}
+
+.x-button {
+  background-color: var(--primary-color);
+  color: var(--text-white-color);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.x-button:hover {
+  background-color: var(--text-red-color);
+}
+
+button:disabled,
+button:disabled:hover {
+    background-color: #cccccc;
+    color: var(--text-white-color);
+    cursor: not-allowed;
+}
+
+#welcome-button {
+  font-size: 20px !important;
+}

@@ -1,0 +1,147 @@
+{% extends 'components/navBar.html' %}
+
+{% block title %}Search - TimeCapsule{% endblock %}
+
+{% block content %}
+<div class="header">
+    <h2>Search Capsules</h2>
+</div>
+
+<div class="search-container">
+    <form method="get" action="." class="search-form">
+        {{ form.q }}
+        <button type="submit" class="search-button">
+            <!-- Search Icon -->
+        </button>
+    </form>
+    <!-- Filter Button -->
+{#    <button id="filter-btn" class="filter-button">Filters</button>#}
+     {% include 'components/buttons/button.html' with button_text="Filter" button_id="filter-btn" button_class="primary-button filter-button" %}
+    <!-- Sort Dropdown Button -->
+{#    <button id="sort-btn" class="sort-button">Sort By</button>#}
+    {% include 'components/buttons/button.html' with button_text="Sort By" button_id="sort-btn" button_class="primary-button sort-button" %}
+</div>
+
+<!-- Filter Modal -->
+<!-- Filter Modal -->
+<div id="filter-modal" class="modal">
+    <div class="modal-content">
+        <span class="search-close">
+{#            &times;#}
+            {% include 'components/buttons/button.html' with button_text="&times;" button_class="x-button" button_font_size="20px" %}
+        </span>
+        <form id="filter-form" method="get" action=".">
+            <h3>Filter Options</h3>
+            <div class="filter-option-1">
+                
+           
+            <div class="filter-option">
+                <input type="radio" id="is_public" name="status" value="public">
+                <label for="is_public">Public</label>
+            </div>
+            <div class="filter-option">
+                <input type="radio" id="is_private" name="status" value="private">
+                <label for="is_private">Private</label>
+            </div>
+                 </div>
+            <hr>
+            <div class="filter-option-2">
+                
+            
+            <div class="filter-option">
+                <input type="radio" id="is_unsealed" name="sealed" value="unsealed">
+                <label for="is_unsealed">Unsealed</label>
+            </div>
+            <div class="filter-option">
+                <input type="radio" id="is_sealed" name="sealed" value="sealed">
+                <label for="is_sealed">Sealed</label>
+            </div>
+                </div>
+            <hr>
+            <!-- Date Filter -->
+            <div class="filter-option-3">
+                
+            
+            <div class="filter-option">
+                <label for="date-filter">Unsealing Date:</label>
+                <input type="date" id="date-filter" name="date">
+            </div>
+                </div>
+            <!-- Include query in the filter form -->
+            <input type="hidden" name="q" value="{{ request.GET.q }}">
+{#            <button type="submit" class="apply-filters-btn">Apply Filters</button>#}
+             {% include 'components/buttons/button.html' with button_text="Apply Filters" button_type="submit" button_class="primary-button apply-filters-btn" %}
+        </form>
+    </div>
+</div>
+
+
+<!-- Sort Options Dropdown -->
+<div id="sort-options" class="sort-options">
+    <a href="?sort=date&q={{ request.GET.q }}">Date</a>
+    <a href="?sort=name&q={{ request.GET.q }}">Name</a>
+</div>
+
+<!-- Search Results -->
+<div class="search-results-container">
+    {% if posts %}
+        <div class="left-container">
+            {% for post in posts %}
+                {% include 'components/card/capsule_card.html' with post=post %}
+            {% endfor %}
+        </div>
+    {% else %}
+            <p>No capsules to view the content.</p>
+    {% endif %}
+</div>
+
+{% include 'components/messages/messages.html' with message_length=3 %}
+
+<!-- Modal & Dropdown Scripts -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var filterModal = document.getElementById('filter-modal');
+    var filterBtn = document.getElementById('filter-btn');
+    var closeFilter = document.getElementsByClassName('search-close')[0];
+    var sortBtn = document.getElementById('sort-btn');
+    var sortOptions = document.getElementById('sort-options');
+
+    // Function to toggle modal display
+    var toggleModal = function() {
+        filterModal.style.display = filterModal.style.display === 'block' ? 'none' : 'block';
+    };
+
+    // Function to toggle sort options display
+    var toggleSortOptions = function() {
+        if (sortOptions.style.display === 'block') {
+            sortOptions.style.display = 'none';
+        } else {
+            sortOptions.style.display = 'block';
+            // When opening sort options, make sure filter modal is closed
+            filterModal.style.display = 'none';
+        }
+    };
+
+    filterBtn.onclick = toggleModal;
+    closeFilter.onclick = toggleModal;
+
+    // Prevent the filter modal from closing when clicking inside it
+    filterModal.onclick = function(event) {
+        event.stopPropagation();
+    };
+
+    sortBtn.onclick = toggleSortOptions;
+
+    // Event listener for window to handle closing modals when clicking outside
+    window.addEventListener('click', function(event) {
+        if (event.target !== filterModal && event.target !== filterBtn) {
+            filterModal.style.display = 'none';
+        }
+        if (event.target !== sortBtn && event.target.closest('#sort-options') === null) {
+            sortOptions.style.display = 'none';
+        }
+    });
+});
+
+</script>
+{% endblock %}

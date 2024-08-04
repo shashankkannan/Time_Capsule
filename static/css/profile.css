@@ -1,0 +1,146 @@
+.profile-container{
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.user-info-container{
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    background-color: var(--text-white-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.profile-card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding-bottom: 20px;
+}
+
+.profile-background {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+    background-size: cover;
+    background-image: url("https://img.freepik.com/free-photo/colorful-geometric-pattern-background-handmade-prints_53876-103513.jpg?t=st=1711169710~exp=1711173310~hmac=357a4543c8c3d1985596e1fd99055be31f9c186ca0dd45df93b339c7f85613b8&w=1060");
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  z-index: 0;
+}
+
+.profile-content {
+  position: relative;
+  z-index: 1;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 40%;
+    overflow: hidden;
+    margin: -50px 30px 10px;
+    border: 5px solid #ffffff;
+    background: #eee;
+}
+
+.profile-picture img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+#fileInputLabel {
+  display: inline-block;
+  background-color: #007bff;
+  font-family: sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s;
+    background: var(--text-white-color);
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+#fileInputLabel:hover {
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: var(--text-white-color);
+    border: 1px solid var(--primary-color);
+}
+
+.button-container{
+    padding-left: 30px;
+}
+
+.profile-info{
+    padding-left: 30px;
+}
+
+.profile-info h3, p {
+  text-align: left;
+}
+
+.profile-info h3 {
+  font-size: 18px;
+  color: var(--text-black-color);
+  margin: 10px 0 5px;
+}
+
+.profile-info p {
+  font-size: 14px;
+  color: var(--text-black-color);
+}
+
+.user-history-container{
+    flex: 0.3;
+    width: 100%;
+    height: 100vh;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: var(--text-white-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-history-content {
+  border-radius: 8px;
+  padding-left: 20px;
+    padding-right: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.user-history-content ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.user-history-content li {
+  padding: 10px;
+  border-bottom: 1px solid #dee2e6;
+  color: #495057;
+}
+
+.user-history-content li:last-child {
+  border-bottom: none;
+}
+
+.user-history-content li:hover {
+  background-color: #e9ecef;
+}
+
+.user-history-content h2 {
+  color: #343a40;
+  text-align: center;
+}

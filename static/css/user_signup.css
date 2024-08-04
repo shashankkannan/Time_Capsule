@@ -1,0 +1,199 @@
+body {
+    background-color: var(--background-color);
+}
+
+.modal-form-container {
+    background-color: var(--background-color);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--background-color);
+    overflow-y: auto;
+}
+
+.boxedd{
+    height: 600px;
+    width: 50px;
+    display: flex;
+    justify-content: right;
+    margin: 0 1000px;
+
+}
+.right-content {
+    display: flex;
+    flex-direction: column;
+}
+
+#login-button{
+    width: 100%;
+}
+
+
+.left-content, .right-content {
+    height: 600px;
+    width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.login-form1{
+    width: 400px;
+    height: auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 1px;
+    border: 1px solid var(--line-grey-color);
+    margin-bottom: 20px;
+}
+
+.sign-up1{
+    width: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 1px;
+    border: 1px solid var(--line-grey-color);
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.modal-heading{
+    padding: 20px 0;
+    text-align: center;
+
+}
+
+.modal-heading h2{
+    font-size: 30px;
+}
+
+.form-style {
+    width: 400px;
+}
+
+.form-field-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.form-label {
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    transition: all 0.3s ease;
+    background-color: var(--text-white-color);
+    padding: 0 4px;
+    color: var(--text-grey-color);
+}
+
+#passwordBlock .form-label {
+    top: 16px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px 12px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid var(--form-label-grey-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--form-label-blue-color);
+}
+
+.form-field-container.active .form-label,
+.form-input:focus + .form-label {
+    top: -8px;
+    font-size: 0.75em;
+    color: var(--form-label-blue-color);
+}
+
+.password-container.active .form-label,
+.password-container .form-input:focus + .form-label {
+    top: 0 !important;
+    font-size: 0.75em;
+    color: var(--form-label-blue-color);
+}
+
+.button-section {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.division {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: var(--line-grey-color);
+}
+
+.or-text {
+    margin: 0 15px;
+    white-space: nowrap;
+    color: var(--text-grey-color);
+}
+
+.forgot-password{
+    text-align: center;
+}
+
+.forgot-password a {
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--text-blue-color);
+}
+
+.sign-up p{
+    margin: 0;
+}
+
+.sign-up a{
+    text-decoration: none;
+    color: var(--text-blue-color);
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container input[type="password"] {
+    width: calc(100% - 30px);
+    flex-grow: 1;
+}
+
+.password-container .toggle-password {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+}
+
+.logo-wrapper {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.logo-wrapper img {
+  width: 100%;
+  border-radius: 5px;
+}

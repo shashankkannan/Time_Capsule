@@ -1,0 +1,248 @@
+body {
+    background-color: var(--background-color);
+}
+
+.modal-form-container {
+    background-color: var(--background-color);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--background-color);
+    overflow-y: auto;
+}
+
+.right-content {
+    display: flex;
+    flex-direction: column;
+}
+
+#login-button, #signup-button{
+    width: 100%;
+}
+
+.left-content, .right-content {
+    height: 600px;
+    width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.left-content img{
+    width: 150%;
+}
+
+.login-form{
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 1px;
+    border: 1px solid var(--line-grey-color);
+    margin-bottom: 20px;
+}
+
+.sign-up, .log-in{
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 1px;
+    border: 1px solid var(--line-grey-color);
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.modal-heading{
+    padding: 20px 0;
+    text-align: center;
+}
+
+.modal-heading h2{
+    font-size: 30px;
+}
+
+.form-style {
+    width: 100%;
+}
+
+.form-field-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#confirmPasswordBlock, #newPasswordBlock, #confirmNewPasswordBlock{
+    margin-bottom: 0;
+}
+
+#confirmNewPasswordBlock{
+    margin-top: 20px;
+}
+
+.form-label {
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    transition: all 0.3s ease;
+    background-color: var(--text-white-color);
+    padding: 0 4px;
+    color: var(--text-grey-color);
+}
+
+#passwordBlock .form-label, #confirmPasswordBlock .form-label {
+    top: 16px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px 12px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid var(--form-label-grey-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--form-label-blue-color);
+}
+
+.form-field-container.active .form-label,
+.form-input:focus + .form-label {
+    top: -8px;
+    font-size: 0.75em;
+    color: var(--form-label-blue-color);
+}
+
+.password-container.active .form-label,
+.password-container .form-input:focus + .form-label,
+.confirm-password-container.active .form-label,
+.confirm-password-container .form-input:focus + .form-label{
+    top: 0 !important;
+    font-size: 0.75em;
+    color: var(--form-label-blue-color);
+}
+
+.button-section {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    /*padding-top: 20px;*/
+}
+
+.division {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: var(--line-grey-color);
+}
+
+.or-text {
+    margin: 0 15px;
+    white-space: nowrap;
+    color: var(--text-grey-color);
+}
+
+.forgot-password{
+    text-align: center;
+}
+
+.forgot-password a {
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--text-blue-color);
+}
+
+.sign-up p, .log-in p{
+    margin: 0;
+}
+
+.sign-up a, .log-in a{
+    text-decoration: none;
+    color: var(--text-blue-color);
+}
+
+.password-container, .confirm-password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container input[type="password"],
+.confirm-password-container input[type="password"] {
+    width: calc(100% - 30px);
+    flex-grow: 1;
+}
+
+.password-container .toggle-password,
+.confirm-password-container .toggle-password {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+}
+
+.input-error {
+    border-color: var(--text-red-color);
+}
+
+.error-message {
+    color: var(--text-red-color);
+    font-size: 0.875rem;
+}
+
+.logo-wrapper {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: center;
+    /*padding-left: 10px;*/
+    /*padding-right: 10px;*/
+}
+
+.logo-wrapper img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.reset-done{
+    padding: 40px;
+}
+
+#newPasswordLabel, #confirmNewPasswordLabel{
+    top: 16px;
+}
+
+#send-reset-email-button, #new-password-button{
+    width: 100%;
+}
+
+#password_reset_login{
+    margin-bottom: 20px;
+}
+
+.margin-bottom-28{
+    margin-bottom: 28px;
+}
+
+.margin-bottom-12{
+    margin-bottom: 12px;
+}
+
+.margin-top-12{
+    margin-top: 12px !important;
+}
+
+.margin-top-0{
+    margin-top: 0;
+}

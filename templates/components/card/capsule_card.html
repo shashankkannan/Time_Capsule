@@ -1,0 +1,194 @@
+<!-- instagram_post_card.html -->
+<div class="post-card">
+
+    {% if request.path != '/my-capsules/' %}
+        <div class="post-head">
+            <div>
+                {% if post.owner.profilepic %}
+                    <img class="icon rounded-circle" src="{{ post.owner.profilepic.url }}" alt="Profile Picture">
+                {% else %}
+                    <img class="icon rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIhsJ2D692LXEDT04mefdqZtznqnIg31FnmX5-aETP1O-rA40rRhSYbMrmMTfTVHHwoCk&usqp=CAU" alt="Profile Picture">
+                {% endif %}
+                <p>{{ post.owner }}</p>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="{% if request.path == '/my-capsules/'%} margin-top-10px post-media
+                {% elif post.owner == request.user  %} post-media
+                {% elif post.is_unsealed == False and post.is_public == False %} post-media-blur
+                {% elif post.is_unsealed == False and post.is_public == True %} post-media-blur
+                {% elif post.is_unsealed == True and post.is_subscribed == True %} post-media
+                {% elif post.is_unsealed == True and post.is_public == False %} post-media-blur
+                {% else %} post-media {% endif %}">
+        {% include 'components/carousel/carousel.html' with items=post.media.all carousel_id=post.pk %}
+        {% if post.is_unsealed == False and post.is_public == False and request.path != '/my-capsules/' and post.is_subscribed == False and post.owner != request.user%}
+            <div class="eye-icon">
+                &#x1F440;
+                {% if post.is_subscribed == False %}
+                    <p style="font-size: 12px">Please subscribe to view the content</p>
+                    {% if post.is_subscribed %}
+                        <!-- User is subscribed, offer to unsubscribe -->
+                        <div class="subscribe-button">
+                            <a href="{% url 'SearchCapsule:toggle_subscription' post.id %}?toggle_subscription=True" class="btn btn-secondary">Subscribed</a>
+                        </div>
+                    {% else %}
+                        <div class="subscribe-button">
+                            <!-- User is not subscribed, offer to subscribe -->
+                            <a href="{% url 'SearchCapsule:toggle_subscription' post.id %}?toggle_subscription=True" class="btn btn-primary">Subscribe</a>
+                        </div>
+                    {% endif %}
+                {% elif post.is_unsealed == False %}
+                    <p style="font-size: 12px">The content will be revealed soon!</p>
+                {% endif %}
+            </div>
+        {% elif post.is_unsealed == False and post.is_public == True and request.path != '/my-capsules/' and post.is_subscribed == False and post.owner != request.user%}
+            <div class="eye-icon">
+                &#x1F440;
+                    <p style="font-size: 12px">The content will be revealed soon!</p>
+            </div>
+        {% elif post.is_unsealed == True and post.is_public == False and request.path != '/my-capsules/' and post.is_subscribed == False and post.owner != request.user %}
+            <div class="eye-icon">
+                &#x1F440;
+                {% if post.is_subscribed == False %}
+                    <p style="font-size: 12px">Please subscribe to view the content</p>
+                    {% if post.is_subscribed %}
+                        <!-- User is subscribed, offer to unsubscribe -->
+                        <div class="subscribe-button">
+                            <a href="{% url 'SearchCapsule:toggle_subscription' post.id %}?toggle_subscription=True" class="btn btn-secondary">Subscribed</a>
+                        </div>
+                    {% else %}
+                        <div class="subscribe-button">
+                            <!-- User is not subscribed, offer to subscribe -->
+                            <a href="{% url 'SearchCapsule:toggle_subscription' post.id %}?toggle_subscription=True" class="btn btn-primary">Subscribe</a>
+                        </div>
+                    {% endif %}
+                {% elif post.is_unsealed == False %}
+                    <p style="font-size: 12px">The content will be revealed soon!</p>
+                {% endif %}
+            </div>
+        {% elif post.is_unsealed == False and post.is_public == False and request.path != '/my-capsules/' and post.is_subscribed == True %}
+            <div class="eye-icon">
+                &#x1F440;
+                {% if post.is_subscribed == False %}
+                    <p style="font-size: 12px">Please subscribe to view the content</p>
+                    {% if post.is_subscribed %}
+                        <!-- User is subscribed, offer to unsubscribe -->
+                        <div class="subscribe-button">
+                            <a href="{% url 'SearchCapsule:toggle_subscription' post.id %}?toggle_subscription=True" class="btn btn-secondary">Subscribed</a>
+                        </div>
+                    {% else %}
+                         <div class="subscribe-button">
+                            <!-- User is not subscribed, offer to subscribe -->
+                            <a href="{% url 'SearchCapsule:toggle_subscription' post.id %}?toggle_subscription=True" class="btn btn-primary">Subscribe</a>
+                        </div>
+                    {% endif %}
+                {% elif post.is_unsealed == False %}
+                    <p style="font-size: 12px">The content will be revealed soon!</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="post-details">
+        {% if  request.path == '/my-capsules/' or request.user == post.owner %}
+            <div class="info-container">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-emoji-heart-eyes" viewBox="0 0 16 16"> <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/> <path d="M11.315 10.014a.5.5 0 0 1 .548.736A4.498 4.498 0 0 1 7.965 13a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .548-.736h.005l.017.005.067.015.252.055c.215.046.515.108.857.169.693.124 1.522.242 2.152.242.63 0 1.46-.118 2.152-.242a26.58 26.58 0 0 0 1.109-.224l.067-.015.017-.004.005-.002zM4.756 4.566c.763-1.424 4.02-.12.952 3.434-4.496-1.596-2.35-4.298-.952-3.434zm6.488 0c1.398-.864 3.544 1.838-.952 3.434-3.067-3.554.19-4.858.952-3.434z"/> </svg>
+                    <svg onclick="openModal('id-modal-{{ post.pk }}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-square-text" viewBox="0 0 16 16"> <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/> <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/> </svg>
+                </div>
+                {% if post.is_unsealed %}
+                    <p><b>Unsealed at :</b> {{ post.unsealing_date }}</p>
+                {% else %}
+                    <p><b>Unsealing at :</b> {{ post.unsealing_date }}</p>
+                {% endif %}
+            </div>
+            <p class="caption">{{ post.name }}
+                <span>{{ post.description }}</span>
+            </p>
+            <p class="comment" onclick="openModal('id-modal-{{ post.pk }}')">
+                View all {{ post.comments.all | length }} comments
+            </p>
+        {% elif post.is_unsealed == True and post.is_public == False and post.is_subscribed == True %}
+            <div class="info-container">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-emoji-heart-eyes" viewBox="0 0 16 16"> <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/> <path d="M11.315 10.014a.5.5 0 0 1 .548.736A4.498 4.498 0 0 1 7.965 13a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .548-.736h.005l.017.005.067.015.252.055c.215.046.515.108.857.169.693.124 1.522.242 2.152.242.63 0 1.46-.118 2.152-.242a26.58 26.58 0 0 0 1.109-.224l.067-.015.017-.004.005-.002zM4.756 4.566c.763-1.424 4.02-.12.952 3.434-4.496-1.596-2.35-4.298-.952-3.434zm6.488 0c1.398-.864 3.544 1.838-.952 3.434-3.067-3.554.19-4.858.952-3.434z"/> </svg>
+                    <svg onclick="openModal('id-modal-{{ post.pk }}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-square-text" viewBox="0 0 16 16"> <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/> <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/> </svg>
+                </div>
+                {% if post.is_unsealed %}
+                    <p><b>Unsealed at :</b> {{ post.unsealing_date }}</p>
+                {% else %}
+                    <p><b>Unsealing at :</b> {{ post.unsealing_date }}</p>
+                {% endif %}
+            </div>
+            <p class="caption">{{ post.name }}
+                <span>{{ post.description }}</span>
+            </p>
+            <p class="comment" onclick="openModal('id-modal-{{ post.pk }}')">
+                View all {{ post.comments.all | length }} comments
+            </p>
+        {% elif post.is_unsealed == True and post.is_public == True %}
+            <div class="info-container">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-emoji-heart-eyes" viewBox="0 0 16 16"> <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/> <path d="M11.315 10.014a.5.5 0 0 1 .548.736A4.498 4.498 0 0 1 7.965 13a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .548-.736h.005l.017.005.067.015.252.055c.215.046.515.108.857.169.693.124 1.522.242 2.152.242.63 0 1.46-.118 2.152-.242a26.58 26.58 0 0 0 1.109-.224l.067-.015.017-.004.005-.002zM4.756 4.566c.763-1.424 4.02-.12.952 3.434-4.496-1.596-2.35-4.298-.952-3.434zm6.488 0c1.398-.864 3.544 1.838-.952 3.434-3.067-3.554.19-4.858.952-3.434z"/> </svg>
+                    <svg onclick="openModal('id-modal-{{ post.pk }}')" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat-square-text" viewBox="0 0 16 16"> <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/> <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/> </svg>
+                </div>
+                {% if post.is_unsealed %}
+                    <p><b>Unsealed at :</b> {{ post.unsealing_date }}</p>
+                {% else %}
+                    <p><b>Unsealing at :</b> {{ post.unsealing_date }}</p>
+                {% endif %}
+            </div>
+            <p class="caption">{{ post.name }}
+                <span>{{ post.description }}</span>
+            </p>
+            <p class="comment" onclick="openModal('id-modal-{{ post.pk }}')">
+                View all {{ post.comments.all | length }} comments
+            </p>
+        {% elif post.is_unsealed == True and post.is_public == False and post.is_subscribed == False %}
+            <div class="info-container" style="padding-left: 20px">
+                <p> <b style="color: var(--text-black-color)"> {{ post.name }} </b> | <b> Unsealed at : </b> {{ post.unsealing_date }}
+            </div>
+        {% else %}
+            <div class="info-container" style="padding-left: 20px">
+                <p> <b style="color: var(--text-black-color)"> {{ post.name }} </b> |
+                    {% if post.is_unsealed %}
+                        <b>Unsealed at :</b>
+                    {% else %}
+                        <b>Unsealing at :</b>
+                    {% endif %}
+                    {{ post.unsealing_date }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="post-actions">
+        {% if request.user == post.owner and request.path == '/my-capsules/' %}
+            {% if post.is_published == False %}
+                <a href="javascript:void(0);" class="edit-icon" data-capsule-id="{{ post.id }}">
+                    <!-- SVG Font Awesome icon for edit -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 512 512">
+                        <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/>
+                    </svg>
+                </a>
+            {% else %}
+                <div class="lock-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 448 512">
+                        <path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/>
+                    </svg>
+                </div>
+            {% endif %}
+            <form method="post" action="{% url 'TimeCapsuleManagement:delete_capsule' post.id %}" onsubmit="return confirm('Are you sure you want to delete this capsule?');" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="delete-icon" style="background: none; border: none; cursor: pointer; padding: 0;">
+                    <!-- SVG Font Awesome icon for delete -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a.5.5 0 0 1-.5-.5V.5h-3v.5a.5.5 0 0 1-.5.5H2.5zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>
+                </button>
+            </form>
+        {% endif %}
+    </div>
+
+    {% include 'components/modal/modal.html' with post=post caro_id=post.name modal_id=post.pk modal_title='My Modal' commentModal=post.comments.all postModal=post.media.all modal_content='This is the content of my modal.' %}
+</div>

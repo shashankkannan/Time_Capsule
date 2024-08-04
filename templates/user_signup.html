@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Time Capsule - Register</title>
+    <link rel="icon" href="../static/LOGO.png" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/base.css">
+    <link rel="stylesheet" href="../static/css/messages/messages.css">
+    <link rel="stylesheet" href="../static/css/button/button.css">
+    <link rel="stylesheet" href="../static/css/authentication.css">
+    <script src="../static/javascript/my_capsules.js"></script>
+    <script src="../static/javascript/register.js"></script>
+</head>
+<body>
+    <!-- message -->
+    {% include "components/messages/messages.html" with message_length=5 %}
+    <div class="modal-form-container">
+        <div class="container">
+             <div class="right-content">
+                <div class="login-form">
+                    <div class="logo-wrapper">
+                        <img src="{% static 'LOGO.png' %}">
+                    </div>
+                    <div class="form-style">
+                        <form method="post" action="{% url 'AuthenticationSystem:user_signup' %}">
+                            {% csrf_token %}
+                            <div class="form-field-container margin-bottom-28" id="usernameBlock">
+                                <label for="id_username" class="form-label" id="usernameLabel">Username *</label>
+                                {{ form.username }}
+                                <span style="font-size: 10px;" id="username-message"></span>
+                            </div>
+                            <div class="form-field-container" id="emailBlock">
+                                <label for="id_email" class="form-label" id="emailLabel">Email *</label>
+                                {{ form.email }}
+                            </div>
+                            <div class="form-field-container password-container margin-bottom-12" id="passwordBlock">
+                                <label for="id_password" class="form-label" id="passwordLabel">Password *</label>
+                                {{ form.password }}
+                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                            </div>
+                            <div class="form-field-container confirm-password-container" id="confirmPasswordBlock">
+                                <label for="id_confirm_password" class="form-label" id="confirmPasswordLabel">Confirm password *</label>
+                                {{ form.confirm_password }}
+                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                            </div>
+                             <div class="button-section">
+                                {% include 'components/buttons/button.html' with button_text="Sign up" button_type="submit" button_id="signup-button" button_class="primary-button" button_disabled=True %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="log-in">
+                    <p>Have an account? <a href="{% url 'AuthenticationSystem:user_login' %}">Log in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+        document.getElementById('id_username').addEventListener('input', function() {
+            var username = this.value;
+            fetch('/check-username-availability/?username=' + username)
+            .then(response => response.json())
+            .then(data => {
+                 var um = document.getElementById('username-message');
+                if (username.trim() === '') {
+                        um.innerText = '';
+                }
+                else if (data.available) {
+                    um.innerText = 'Username available';
+                    um.style.color = 'green';
+                } else {
+                    um.innerText = 'Username already exists';
+                    um.style.color = 'red';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

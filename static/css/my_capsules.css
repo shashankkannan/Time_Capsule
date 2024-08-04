@@ -1,0 +1,235 @@
+.my-capsules-first-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: var(--text-white-color);
+    border-radius: 5px;
+    z-index: 10;
+    position: sticky;
+    top: 0;
+}
+
+.my-capsules-first-row h2{
+    margin: 0;
+}
+
+.create-capsule-button {
+    margin-left: 0;
+}
+
+.capsule-modal {
+  display: none;
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.capsule-modal-left {
+  width: 245px;
+  height: 100%;
+}
+
+.capsule-modal-right {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.capsule-modal-form {
+  padding: 20px;
+  background-color: var(--text-white-color);
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  position: relative;
+  overflow-y: auto;
+    width: 50%;
+    max-height: 80%;
+    margin-top: 70px;
+}
+
+.capsule-modal-heading {
+  text-align: center;
+  width: 100%;
+}
+
+.close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+.form-row{
+    display: flex;
+    justify-content: space-between;
+}
+
+.text-row{
+    margin: 0 0 20px 0;
+    padding: 0 5px;
+}
+
+.text-row p{
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-grey-color);
+}
+
+.form-column-one {
+    flex: 2;
+}
+
+.form-column-two {
+    flex: 1;
+}
+
+.form-column-three {
+    flex: 1;
+}
+.form-field-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.form-label {
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    transition: all 0.3s ease;
+    background-color: var(--text-white-color);
+    padding: 0 50px 0 4px;
+    color: var(--text-grey-color);
+}
+
+.profile{
+    padding: 0 10px 0 4px;
+}
+
+.form-field-container.active .form-label,
+.form-input:focus + .form-label {
+    top: -8px;
+    font-size: 0.75em;
+    color: var(--form-label-blue-color);
+}
+
+.form-field-container.active .profile,
+.form-input:focus + .profile {
+    top: 0;
+}
+
+#is_publicBlock .form-label, #statusBlock .form-label {
+    top: -8px;
+    font-size: 0.75em;
+    color: var(--form-label-blue-color);
+}
+
+#unsealing_dateBlock, #is_publicBlock {
+    margin-right: 10px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px 12px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid var(--form-label-grey-color);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--form-label-blue-color);
+}
+
+.drop-zone {
+  padding: 5px 20px;
+  border-radius: 5px;
+  border: 2px dashed var(--text-blue-color);
+  color: var(--text-blue-color);
+  background-color: var(--dropzone-background-color);
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid var(--text-blue-color);
+  width: 14px;
+  height: 14px;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.file-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--file-background-color);
+}
+
+div.file-item{
+  padding: 10px 20px 10px 10px;
+  margin-bottom: 10px;
+}
+
+.file-name {
+    flex-grow: 1;
+}
+
+.delete-icon {
+  cursor: pointer;
+  color: var(--text-black-color);
+  font-weight: bold;
+}
+
+.delete-icon:hover {
+  color: var(--text-red-color);
+}
+
+.button-section {
+  text-align: center;
+  padding: 15px 0;
+}
+
+.my-capsules-second-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+    padding: 20px;
+}
+
+.my-capsules-second-row > div {
+    flex: 1 1 calc(50% - 20px);
+    max-width: calc(50% - 20px);
+}
+
+.my-capsules-second-row > div:nth-child(2) {
+    margin-right: auto;
+}

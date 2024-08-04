@@ -1,0 +1,60 @@
+{% extends 'components/navBar.html' %}
+
+{% block title %}Home - TimeCapsule{% endblock %}
+
+{% block content %}
+    <div class="header">
+        <div>
+            <h2>Home</h2>
+        </div>
+    </div>
+    
+    <!-- Add more content here -->
+    {% if message %}
+        <div id="welcomePopup" style="display:none;" class="welcome-popup-modal">
+            <div class="welcome-popup-modal-content">
+                <div class="welcome-popup-container">
+                    <div class="last-visit-popup">
+                        <div id="lastVisitMessage" class="popup-items" data-message="{{ message }}"></div>
+                        <button id="welcome-button" class="popup-items x-button" onclick="closePopup()">&times;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    <div class="home-container">
+        <div class="left-home-container">
+        {% if posts %}
+            {% for post in posts %}
+                {% include 'components/card/capsule_card.html' with post=post %}
+            {% endfor %}
+        {% else %}
+            <p>Please subscribe to the users to view the contents.</p>
+        {% endif %}
+        </div>
+
+        <div class="right-container">
+            <p>Suggested User for you</p>
+
+            {% for user in users %}
+                <div class="post-head" style="width: 100%">
+                    <div >
+                        {% if user.profilepic %}
+                           <img class="icon rounded-circle" src="{{ user.profilepic }}" alt="Profile Picture">
+                        {% else %}
+                           <img class="icon rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIhsJ2D692LXEDT04mefdqZtznqnIg31FnmX5-aETP1O-rA40rRhSYbMrmMTfTVHHwoCk&usqp=CAU" alt="Profile Picture">
+                        {% endif %}
+                        <p>{{ user.username }}</p>
+                    </div>
+
+                    {% include 'components/buttons/button.html' with button_text="Subscribe" button_class="primary-button" %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- message -->
+    {% include "components/messages/messages.html" with message_length=3 %}
+{% endblock %}

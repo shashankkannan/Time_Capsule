@@ -1,0 +1,64 @@
+<!-- instagram_post_card.html -->
+<div class="post-card">
+
+    {% if request.path != '/my-capsules/' %}
+        <div class="post-head">
+            <div>
+                <img class="icon rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIhsJ2D692LXEDT04mefdqZtznqnIg31FnmX5-aETP1O-rA40rRhSYbMrmMTfTVHHwoCk&usqp=CAU" alt="Profile icon">
+                <p>{{ post.owner }}</p>
+            </div>
+
+           {% if request.path != '/' %}
+                {% if post.is_subscribed %}
+                    <!-- User is subscribed, offer to unsubscribe -->
+                    <div class="subscribe-btn">
+                        <a href="{% url 'SearchCapsule:toggle_subscription' post.id %}?toggle_subscription=True" class="btn btn-secondary">Subscribed</a>
+                    </div>
+                {% else %}
+                     <div class="subscribe-btn">
+                        <!-- User is not subscribed, offer to subscribe -->
+                        <a href="{% url 'SearchCapsule:toggle_subscription' post.id %}?toggle_subscription=True" class="btn btn-primary">Subscribe</a>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if not post.is_public  and not post.is_subscribed or not post.is_unsealed%}
+        <!-- Show locked animation for private capsules regardless of sealed status -->
+        <div class="post-media">
+            <img style="height: 400px; width: 100%; display: block;" src="https://cdn.dribbble.com/users/186202/screenshots/4921305/lockunlock.gif" alt="Locked Capsule">
+            <div class="info-container" style="padding-left: 20px">
+                <p><b style="color: var(--text-black-color)">{{ post.name }}</b> | <b>Private Capsule</b></p>
+            </div>
+        </div>
+    {% elif post.is_unsealed == True %}
+        <div class="post-media {% if request.path == '/my-capsules/' %}margin-top-10px{% endif %}">
+            {% include 'components/carousel/carousel.html' with items=post.media.all carousel_id=post.pk %}
+        </div>
+
+        <div class="post-details">
+            <div class="info-container">
+                <!-- Icons and details here -->
+            </div>
+            <p class="caption">{{ post.name }}<span>{{ post.description }}</span></p>
+            <p class="comment" onclick="openModal('id-modal-{{ post.pk }}')">View all {{ post.comments.all | length }} comments</p>
+        </div>
+    {% else %}
+        <!-- Show locked animation for sealed (non-private) capsules -->
+        <div class="post-media">
+            <img style="height: 400px; width: 100%; display: block;" src="https://cdn.dribbble.com/users/186202/screenshots/4921305/lockunlock.gif" alt="Sealed Capsule">
+            <div class="info-container" style="padding-left: 20px">
+                <p><b style="color: var(--text-black-color)">{{ post.name }}</b> | <b>Unsealing at:</b> {{ post.unsealing_date }}</p>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if  post.is_public %}
+        <div class="post-actions">
+            <!-- Action buttons for non-private posts -->
+        </div>
+    {% endif %}
+
+    {% include 'components/modal/modal.html' with post=post caro_id=post.name modal_id=post.pk modal_title="My Modal" commentModal=post.comments.all postModal=post.media.all modal_content="This is the content of my modal." %}
+</div>

@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Time Capsule - Login</title>
+    <link rel="icon" href="../static/LOGO.png" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/base.css">
+    <link rel="stylesheet" href="../static/css/messages/messages.css">
+    <link rel="stylesheet" href="../static/css/button/button.css">
+    <link rel="stylesheet" href="../static/css/authentication.css">
+    <script src="../static/javascript/my_capsules.js"></script>
+    <script src="../static/javascript/login.js"></script>
+</head>
+<body>
+    <!-- message -->
+    {% include "components/messages/messages.html" with message_length=3 %}
+    <div class="modal-form-container">
+        <div class="container">
+            <div class="left-content">
+                <!-- Left side content -->
+                <img src="{% static 'COVER.gif' %}">
+            </div>
+            <div class="right-content">
+                <div class="login-form">
+                    <div class="logo-wrapper">
+                        <img src="{% static 'LOGO.png' %}">
+                    </div>
+                    <div class="form-style">
+                        <form method="post" action="{% url 'AuthenticationSystem:user_login' %}">
+                            {% csrf_token %}
+                            <div class="form-field-container" id="usernameBlock">
+                                <label for="id_username" class="form-label" id="usernameLabel">Username *</label>
+                                {{ form.username }}
+                            </div>
+                            <div class="form-field-container password-container" id="passwordBlock">
+                                <label for="id_password" class="form-label" id="passwordLabel">Password *</label>
+                                {{ form.password }}
+                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                            </div>
+                             <div class="button-section margin-top-0">
+                                {% include 'components/buttons/button.html' with button_text="Log in" button_type="submit" button_id="login-button" button_class="primary-button" %}
+                            </div>
+                        </form>
+                    </div>
+                    <div class="division">
+                        <div class="line"></div>
+                        <span class="or-text">OR</span>
+                        <div class="line"></div>
+                    </div>
+                    <div class="forgot-password">
+                        <p>
+                            <a href="{% url 'AuthenticationSystem:password_reset' %}"> Forgot password?</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="sign-up">
+                    <p>Don't have an account? <a href="{% url 'AuthenticationSystem:user_signup' %}">Sign up</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+{% extends 'components/navBar.html' %}
+
+{% block title %}My TimeCapsules{% endblock %}
+
+{% block content %}
+<div class="my-capsules-content">
+
+    <div class="my-capsules-first-row">
+        <div>
+            <h2>My Capsules</h2>
+        </div>
+
+        <!-- Create Capsule Button -->
+        <div class="create-capsule-button">
+            <div class="button-position">
+                {% include 'components/buttons/button.html' with button_text="Create Capsule" button_class="primary-button" button_data_toggle='modal' button_data_target="#capsuleFormModal" %}
+            </div>
+        </div>
+    </div>
+
+    <div class="my-capsules-second-row">
+        {% if capsule_list %}
+            {% for capsule in capsule_list %}
+                {% include 'components/card/capsule_card.html' with post=capsule %}
+            {% endfor %}
+        {% else %}
+            <p style="padding: 20px; width: 100%">You do not have any capsules! Please create one by clicking on the create button.</p>
+        {% endif %}
+    </div>
+
+    <!-- Form Modal -->
+    <div id="capsuleFormModal" class="capsule-modal">
+        <div class="capsule-modal-left"></div>
+        <div class="capsule-modal-right">
+            <div class="capsule-modal-form">
+                <div class="capsule-modal-heading">
+                    <h2 id="capsule-form-header">Create your Time Capsule!</h2>
+                </div>
+                <div class="capsule-modal-content">
+                    <span class="close">
+                     {% include 'components/buttons/button.html' with button_text="&times;" button_class="x-button" button_font_size="20px" %}
+                    </span>
+                    <form method="post" enctype="multipart/form-data" id="capsuleForm">
+                        {% csrf_token %}
+                        <div class="capsule-section">
+                            <div class="form-field-container" id="nameBlock">
+                                <label for="id_name" class="form-label" id="nameLabel">Name *</label>
+                                {{ form.name }}
+                            </div>
+                            <div class="form-field-container" id="descriptionBlock">
+                                <label for="id_description" class="form-label" id="descriptionLabel">Description *</label>
+                                {{ form.description }}
+                            </div>
+                            <div class="form-row">
+                                <div class="form-column-one">
+                                    <div class="form-field-container" id="unsealing_dateBlock">
+                                        <label for="id_unsealing_date" id="unsealing_dateLabel" class="form-label">Unsealing Date *</label>
+                                        {{ form.unsealing_date }}
+                                    </div>
+                                </div>
+                                <div class="form-column-two">
+                                    <div class="form-field-container" id="is_publicBlock">
+                                        <label for="id_is_public" class="form-label">Visibility</label>
+                                        {{ form.is_public }}
+                                    </div>
+                                </div>
+                                <div class="form-column-three">
+                                    <div class="form-field-container" id="statusBlock">
+                                        <label for="id_status" class="form-label">Status</label>
+                                        {{ form.is_published }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-row">
+                                <p> <b> NOTE:</b> A published capsule cannot be edited or unpublished. </p>
+                            </div>
+                        </div>
+                        <div class="capsule-content-section">
+                            <div id="dropZone" class="drop-zone">
+                                <p>Drag and drop files here, or click to select files *</p>
+                                <input type="file" name="capsule_contents" id="capsule_contents" multiple hidden accept=".jpg, .png, .hpeg, .mp4" />
+                            </div>
+                        </div>
+                        <div class="uploaded-capsule-content-section"></div>
+                        <div class="new-uploaded-capsule-content-section"></div>
+                        <div class="button-section">
+                            {% include 'components/buttons/button.html' with button_text="Submit" button_type="submit" button_id="form-button" button_class="primary-button" %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- message -->
+    {% include "components/messages/messages.html" with message_length=3 %}
+
+</div>
+{% endblock %}

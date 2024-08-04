@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="../../static/LOGO.png" />
+    <title>Time Capsule</title>
+    <link rel="stylesheet" href="../../static/css/navBar/navBar.css">
+    <link rel="stylesheet" href="../../static/css/button/button.css">
+    <link rel="stylesheet" href="../../static/css/messages/messages.css">
+    <link rel="stylesheet" href="../../static/css/base.css">
+    <link rel="stylesheet" href="../../static/css/my_capsules.css">
+    <link rel="stylesheet" href="../../static/css/carousel/carousel.css">
+    <link rel="stylesheet" href="../../static/css/card/capsule_card.css">
+    <link rel="stylesheet" href="../../static/css/home.css">
+    <link rel="stylesheet" href="../../static/css/modal/modal.css">
+    <link rel="stylesheet" href="../../static/css/search.css">
+    <link rel="stylesheet" href="../../static/css/profile.css">
+    <script src="../../static/javascript/my_capsules.js"></script>
+    <script src="../../static/javascript/carousel.js"></script>
+    <script src="../../static/javascript/logout.js"></script>
+    <script src="../../static/javascript/modal.js"></script>
+    <script src="../../static/javascript/messages.js"></script>
+    <script src="../../static/javascript/home.js"></script>
+</head>
+<body>
+<div class="container">
+   <div class="sidebar">
+  <a href="{% url 'TimeCapsuleManagement:home' %}" class="logo-wrapper">
+    <img src="{% static 'LOGO.png' %}">
+  </a>
+  <ul class="sidebar-menu">
+    <li>
+      <a href="{% url 'TimeCapsuleManagement:home' %}" {% if request.path == '/' %}class="nav-link active" {% else %} class="nav-link" {% endif %}>
+        <span class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" aria-label="Home" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24">
+            <path d="M9.005 16.545a2.997 2.997 0 0 1 2.997-2.997A2.997 2.997 0 0 1 15 16.545V22h7V11.543L12 2 2 11.543V22h7.005Z" fill="none" stroke="#000000" stroke-linejoin="round" stroke-width="2px"></path>
+          </svg>
+        </span>
+        Home
+      </a>
+    </li>
+    <li>
+       <a href="{% url 'SearchCapsule:capsule_search' %}" {% if request.path == '/search/' %}class="nav-link active" {% else %} class="nav-link" {% endif %}>
+        <span class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" aria-label="Search" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24">
+            <path d="M19 10.5A8.5 8.5 0 1 1 10.5 2a8.5 8.5 0 0 1 8.5 8.5Z" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></path>
+            <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="16.511" x2="22" y1="16.511" y2="22"></line>
+          </svg>
+        </span>
+        Search
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'TimeCapsuleManagement:my_capsules' %}" {% if request.path == '/my-capsules/' %}class="nav-link active" {% else %} class="nav-link" {% endif %}>
+        <span class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" aria-label="New post" class="_ab6-" color="rgb(0, 0, 0)" fill="rgb(0, 0, 0)" height="24" role="img" viewBox="0 0 24 24" width="24">
+            <path d="M2 12v3.45c0 2.849.698 4.005 1.606 4.944.94.909 2.098 1.608 4.946 1.608h6.896c2.848 0 4.006-.7 4.946-1.608C21.302 19.455 22 18.3 22 15.45V8.552c0-2.849-.698-4.006-1.606-4.945C19.454 2.7 18.296 2 15.448 2H8.552c-2.848 0-4.006.699-4.946 1.607C2.698 4.547 2 5.703 2 8.552Z" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px"></path>
+            <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="6.545" x2="17.455" y1="12.001" y2="12.001"></line>
+            <line fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2px" x1="12.003" x2="12.003" y1="6.545" y2="17.455"></line>
+          </svg>
+        </span>
+        My Capsules
+      </a>
+    </li>
+    <li>
+      <a href="{% url 'AuthenticationSystem:profile' %}" {% if request.path == '/profile/' %}class="nav-link active" {% else %} class="nav-link" {% endif %}>
+        {% if request.user.profilepic %}
+                  <img class="icon rounded-circle" src="{{ request.user.profilepic.url }}" alt="Profile Picture">
+        {% else %}
+           <img class="icon rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIhsJ2D692LXEDT04mefdqZtznqnIg31FnmX5-aETP1O-rA40rRhSYbMrmMTfTVHHwoCk&usqp=CAU" alt="Profile Picture">
+        {% endif %}
+        Profile
+      </a>
+    </li>
+  </ul>
+
+
+  <ul class="sidebar-menu bottom">
+    <li>
+        {% if user.is_authenticated %}
+          <a href="{% url 'AuthenticationSystem:user_logout' %}" class="nav-link" id="logout-link">
+            <span class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" role="img" width="24" viewBox="0 0 512 512" style="transform: rotate(180deg);">
+                    <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/>
+                </svg>
+            </span>
+            Logout
+          </a>
+        {% else %}
+            <a href="{% url 'AuthenticationSystem:user_login' %}" class="nav-link">
+            <span class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" role="img" width="24" viewBox="0 0 512 512">
+                    <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/>
+                </svg>
+            </span>
+            Login
+          </a>
+        {% endif %}
+    </li>
+  </ul>
+</div>
+        
+        <div class="content">
+        <!-- Content of child templates will go here -->
+        {% block content %}
+        {% endblock %}
+        </div>
+</div>
+</body>
+</html>

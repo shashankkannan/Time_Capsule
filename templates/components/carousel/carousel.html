@@ -1,0 +1,18 @@
+<!-- carousel.html -->
+<div class="carousel max-width-600px" id="id-{{ carousel_id }}">
+  <div class="carousel-inner">
+    {% for item in items %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        {% if item.file_type == 'photo' %}
+            <img src="{{ item.file.url }}" alt="{{ item.capsule }} {{ item.file_type }}">
+        {% elif item.file_type == 'video' %}
+            <video controls><source src="{{ item.file.url }}" type="video/mp4"></video>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+  {% if items|length > 1 %}
+      <button class="carousel-control-prev" onclick="prevSlide('id-{{ carousel_id }}')">&#10094;</button>
+      <button class="carousel-control-next" onclick="nextSlide('id-{{ carousel_id }}')">&#10095;</button>
+  {% endif %}
+</div>

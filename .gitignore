@@ -1,0 +1,17 @@
+# Django project
+*.pyc
+_pycache_/
+*.pyo
+*.pyd
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+*.venv
+
+# Logs
+*.log
+logs/

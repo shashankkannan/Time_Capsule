@@ -1,0 +1,63 @@
+<!-- modal.html -->
+<div class="modal-2" id="id-modal-{{ modal_id }}">
+  <div class="modal-2-overlay"></div>
+  <div class="modal-2-content">
+    <div class="modal-2-body">
+        <div class="left-carousel">
+            {% include 'components/carousel/carousel.html' with items=postModal carousel_id=caro_id %}
+        </div>
+        <div class="right-comment">
+
+            <div class="post-head" style="width: 100%;border-bottom: 1px solid #ccc;">
+                    <div >
+                        {% if post.owner.profilepic %}
+                  <img class="icon rounded-circle" src="{{ post.owner.profilepic.url }}" alt="Profile Picture">
+                {% else %}
+                   <img class="icon rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIhsJ2D692LXEDT04mefdqZtznqnIg31FnmX5-aETP1O-rA40rRhSYbMrmMTfTVHHwoCk&usqp=CAU" alt="Profile Picture">
+                {% endif %}
+                        <p>{{ post.owner }}</p>
+                    </div>
+
+                    <button id="close" onclick="closeModal('id-modal-{{ modal_id }}')" class="modal-2-close x-button">&times;</button>
+            </div>
+
+            <div class="comment-container">
+                
+                {% for comment in commentModal %}
+                    <div class="comment-head" >
+                        <div class="comment-profile">
+                            {% if comment.user.profilepic %}
+                  <img class="icon rounded-circle" src="{{ comment.user.profilepic.url }}" alt="Profile Picture">
+                {% else %}
+                   <img class="icon rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIhsJ2D692LXEDT04mefdqZtznqnIg31FnmX5-aETP1O-rA40rRhSYbMrmMTfTVHHwoCk&usqp=CAU" alt="Profile Picture">
+                {% endif %}
+                        </div>
+    
+                        <div class="caption-container">
+                            <div style="width: 100%">
+                            <p class="caption" style="margin-top: 10px;margin-bottom: 5px">{{ comment.user }}
+                            <span>{{ comment.content }}</span>
+                            </p>
+                            </div>
+    
+                            <div>
+                                <p style="margin: 0;color: var(--text-grey-color);font-size: 14px;width: 100%">
+                                    Commented on {{ comment.timestamp }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+            </div>
+        
+                <form class="post-comment-container" method="POST" action="{% url 'TimeCapsuleManagement:post_comment' post.id %}">
+                  {% csrf_token %}
+                  {{ comment_form.content }}
+                  <button type="submit" class="primary-button">Post</button>
+                </form>
+
+        </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+{% extends 'components/navBar.html' %}
+{% load static %}
+{% block title %}Home - TimeCapsule{% endblock %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="profile-container">
+            {#    Top content#}
+            <div style="flex: 0.7;display: flex;flex-direction: column;gap: 20px">
+                <div class="profile-card">
+                    <div class="profile-background">
+                        
+                    </div>
+                    <div class="profile-content">
+                        <div class="profile-picture">
+                            {% if cur_user.profilepic %}
+                                <img src="{{ cur_user.profilepic.url }}" alt="Profile Picture">
+                            {% else %}
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIhsJ2D692LXEDT04mefdqZtznqnIg31FnmX5-aETP1O-rA40rRhSYbMrmMTfTVHHwoCk&usqp=CAU" alt="Profile Picture">
+                            {% endif %}
+                        </div>
+                        <div class="profile-info">
+                            <h3>Your Photo</h3>
+                            <p>This will be displayed on your profile</p>
+                        </div>
+                        <div class="button-container">
+                            {{ form.profilepic }}
+                            <label for="fileInput" id="fileInputLabel" style="cursor: pointer;">Upload File</label>
+{#                            <h4>Number of visitsL {{ nv }}</h4>#}
+                        </div>
+                    </div>
+                </div>
+                <div class="user-info-container">
+                    <h2>Personal Information</h2>
+                    <div class="form-field-container" id="firstnameBlock">
+                        <label for="id_username" class="form-label profile" id="firstLabel">First Name </label>
+                        {{ form.first_name }}
+                    </div>
+                    <div class="form-field-container" id="lastnameBlock">
+                        <label for="id_username" class="form-label profile" id="lastnameLabel">Last Name </label>
+                        {{ form.last_name }}
+                    </div>
+                    <div class="form-field-container" id="usernameBlock">
+                        <label for="id_username" class="form-label profile" id="usernameLabel">Username </label>
+                        {{ form.username }}
+                        <span style="font-size: 10px;" id="username-message"></span>
+                    </div>
+                    <div class="form-field-container" id="emailBlock">
+                    <label for="id_username" class="form-label profile" id="emailLabel">Email </label>
+                        {{ form.email }}
+                    </div>
+                    <div class="form-field-container" id="bioBlock">
+                    <label for="id_username" class="form-label profile" id="bioLabel">Bio </label>
+                        {{ form.bio }}
+                    </div>
+                    <button class="primary-button" type="submit" name="profile_submit" style="width: 10%">Save</button>
+                </div>
+            </div>
+            <div class="user-history-container">
+                <h2 style="margin-left: 20px">User History</h2>
+                <div class="user-history-content">
+                    <ul>
+                        {% for visit in user_history %}
+                            <li>
+                                <b>Last Visited Profile Page :</b>
+                                <br>
+                                <br>
+                                {{ visit.timestamp }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+     fetch('/update_user_history', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}' 
+        },
+        body: JSON.stringify({})
+    }).then(response => {
+    }).catch(error => {
+    });
+        document.getElementById('id_username').addEventListener('input', function() {
+            var username = this.value;
+            fetch('/check-username-availability/?username=' + username)
+            .then(response => response.json())
+            .then(data => {
+                 var um = document.getElementById('username-message');
+                if (username.trim() === '') {
+                        um.innerText = '';
+                }
+                else if (data.available) {
+                    um.innerText = 'Username available';
+                    um.style.color = 'green';
+                } else {
+                    um.innerText = 'Username already exists';
+                    um.style.color = 'red';
+                }
+            });
+        });
+    </script>
+    {% include "components/messages/messages.html" with message_length=5 %}
+{% endblock %}

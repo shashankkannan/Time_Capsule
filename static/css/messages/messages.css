@@ -1,0 +1,36 @@
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  color: var(--text-white-color);
+  border-radius: 5px;
+  z-index: 1000;
+}
+
+.success {
+  background-color: var(--success-message-background)
+}
+
+.error {
+  background-color: var(--error-message-background);
+}
+
+@keyframes slideInFadeOut {
+    0% {
+        right: -100%;
+        opacity: 0;
+    }
+    10% {
+        right: 20px;
+        opacity: 1;
+    }
+    90% {
+        right: 20px;
+        opacity: 1;
+    }
+    100% {
+        right: 20px;
+        opacity: 0;
+    }
+}
